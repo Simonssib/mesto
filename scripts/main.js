@@ -1,30 +1,30 @@
 const popup = document.querySelector('.popup');
-const popupOpen = document.querySelector('.popup-open');
+const popupOpen = document.querySelector('.profile__button-edit');
 const popupClose = document.querySelector('.popup__close');
-
-popupOpen.addEventListener('click', function() {
-    popup.classList.add('popup__opened');
-});
-
-popupClose.addEventListener('click', function() {
-    popup.classList.remove('popup__opened');
-});
-
-
 let profileName = document.querySelector('.profile__name');
 let profileProfession = document.querySelector('.profile__profession');
-let popupName = document.querySelector('.popup__name');
-let popupProfession = document.querySelector('.popup__profession');
+let popupName = document.querySelector('.popup_input_name');
+let popupProfession = document.querySelector('.popup_input_profession');
 const saveButton = document.querySelector('.popup__save');
+const likeButtonList = document.querySelectorAll('.elements__button-like');
+let form = document.querySelector('.popup__input');
 
-saveButton.addEventListener('click', function() {
+function openPopup() {
+    popup.classList.add('popup_opened');
+    popupName.value = profileName.textContent;
+    popupProfession.value = profileProfession.textContent;
+};
+
+function closePopup() {
+    popup.classList.remove('popup_opened');
+};
+
+function formSubmitHandler(evt) {
+    evt.preventDefault();
     profileName.textContent = popupName.value;
     profileProfession.textContent = popupProfession.value;
-    popup.classList.remove('popup__opened');
-});
-
-
-const likeButton = document.querySelectorAll('.elements__button-like');
+    closePopup();
+}
 
 function likeActive(parent) {
     parent.forEach((item) => {
@@ -33,4 +33,8 @@ function likeActive(parent) {
         });
     });
 }
-likeActive(likeButton);
+
+popupOpen.addEventListener('click', openPopup);
+popupClose.addEventListener('click', closePopup);
+form.addEventListener('submit', formSubmitHandler);
+likeActive(likeButtonList);

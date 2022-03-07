@@ -1,5 +1,5 @@
 .popup__save {
-    font-family: 'Inter';
+    font-family: 'Inter', "Arial", sans-serif;
     font-weight: 400;
     width: 358px;
     height: 50px;
@@ -14,7 +14,7 @@
     transition: opacity .5s linear;
     outline: none;
     align-content: center;
-    margin: 32px auto 37px auto;
+    margin: 48px auto 37px auto;
 }
 
 .popup__save:hover {
@@ -23,6 +23,8 @@
 
 @media screen and (max-width: 520px) {
     .popup__save {
+        font-size: 14px;
+        line-height: 16.94px;
         margin: 45px auto 25px auto;
         width: 238px;
         height: 46px;
