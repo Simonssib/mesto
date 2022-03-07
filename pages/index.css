@@ -29,5 +29,3 @@
 @import url(../blocks/popup/__close/popup__close.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/__field/popup__field.css);
-@import url(../blocks/popup/_input/popup_input_name.css);
-@import url(../blocks/popup/_input/popup_input_profession.css);
