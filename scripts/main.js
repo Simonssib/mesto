@@ -8,8 +8,8 @@ const postPopupClose = postPopup.querySelector('.popup__close');
 
 const profileName = document.querySelector('.profile__name');
 const profileProfession = document.querySelector('.profile__profession');
-const popupName = document.querySelector('.popup__field_text_name');
-const popupProfession = document.querySelector('.popup__field_text_profession');
+const popupInputName = document.querySelector('.popup__field_text_name');
+const popupInputProfession = document.querySelector('.popup__field_text_profession');
 const buttonSave = document.querySelector('.popup__save');
 const likeButtonList = document.querySelectorAll('.elements__button-like');
 const formProfile = profilePopup.querySelector('.popup__input');
@@ -65,8 +65,8 @@ function closePopup(element) {
 
 function formSubmitHandler(evt) {
     evt.preventDefault();
-    profileName.textContent = popupName.value;
-    profileProfession.textContent = popupProfession.value;
+    profileName.textContent = popupInputName.value;
+    profileProfession.textContent = popupInputProfession.value;
     closePopup(profilePopup);
 }
 
