@@ -12,14 +12,14 @@ const popupInputName = document.querySelector('.popup__field_text_name');
 const popupInputProfession = document.querySelector('.popup__field_text_profession');
 const buttonSave = document.querySelector('.popup__save');
 const likeButtonList = document.querySelectorAll('.elements__button-like');
-const formProfile = profilePopup.querySelector('.popup__input');
+const formProfile = profilePopup.querySelector('.popup__form');
 
 const cardTemplate = document.querySelector('.elements-template');
 const buttonAdd = postPopup.querySelector('.popup__save');
 const cardContainer = document.querySelector('.elements');
 const inputCardTitle = postPopup.querySelector('.popup__field_text_title');
 const inputCardLink = postPopup.querySelector('.popup__field_text_link');
-const formCard = postPopup.querySelector('.popup__input');
+const formCard = postPopup.querySelector('.popup__form');
 const card = postPopup.querySelector('.elements__item');
 const buttonCloseImage = cardTemplate.content.querySelector('.popup__close');
 
@@ -130,3 +130,69 @@ popupZoomClose.addEventListener('click', () => closePopup(popupZoom));
 
 formProfile.addEventListener('submit', formSubmitHandler);
 formCard.addEventListener('submit', addCard);
+/*
+const showInputError = (formElement, inputElement, errorMessage) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.add('popup__input_type_error');
+    errorElement.textContent = errorMessage;
+    errorElement.classList.add('popup__input-error_active');
+};
+
+const hideInputError = (formElement, inputElement) => {
+    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove('popup__input_type_error');
+    errorElement.classList.remove('popup__input-error_active');
+    errorElement.textContent = '';
+};
+
+const checkInputValidity = (formElement, inputElement) => {
+    if (!inputElement.validity.valid) {
+        showInputError(formElement, inputElement, inputElement.validationMessage);
+    } else {
+        hideInputError(formElement, inputElement);
+    }
+};
+
+const setEventListeners = (formElement) => {
+    const inputList = Array.from(formElement.querySelectorAll('.popup__field'));
+    const buttonElement = formElement.querySelector('.popup__save');
+    toggleButtonState(inputList, buttonElement);
+    inputList.forEach((inputElement) => {
+        inputElement.addEventListener('input', function() {
+            checkInputValidity(formElement, inputElement);
+            toggleButtonState(inputList, buttonElement);
+        });
+    });
+};
+
+const enableValidation = () => {
+    let formList = Array.from(document.querySelectorAll('.popup__input'));
+    formList.forEach((formElement) => {
+        formElement.addEventListener('submit', (evt) => { evt.preventDefault() });
+        const fieldsetList = Array.from(formElement.querySelectorAll('.form__set'));
+        fieldsetList.forEach((fieldSet) => {
+            setEventListeners(fieldSet);
+        });
+    })
+};
+
+const hasInvalidInput = (inputList) => {
+    // проходим по этому массиву методом some
+    return inputList.some((inputElement) => {
+        // Если поле не валидно, колбэк вернёт true
+        // Обход массива прекратится и вся фунцкция
+        // hasInvalidInput вернёт true
+
+        return !inputElement.validity.valid;
+    })
+}
+
+const toggleButtonState = (inputList, buttonElement) => {
+    if (hasInvalidInput(inputList)) {
+        buttonElement.classList.add('button_inactive');
+    } else {
+        buttonElement.classList.remove('button_inactive');
+    }
+};
+
+enableValidation();*/

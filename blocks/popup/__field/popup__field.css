@@ -1,6 +1,8 @@
 .popup__field {
     font-family: 'Inter', 'Arial', sans-serif;
     font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
     width: 358px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
     border-top: 0;
@@ -13,8 +15,4 @@
     .popup__field {
         width: 238px;
     }
-}
-
-.popup__field:last-of-type {
-    margin-top: 30px;
 }

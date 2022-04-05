@@ -14,7 +14,7 @@
     transition: opacity .5s linear;
     outline: none;
     align-content: center;
-    margin: 48px auto 37px auto;
+    margin: 48px 0 37px 0;
 }
 
 .popup__save:hover {
@@ -25,7 +25,7 @@
     .popup__save {
         font-size: 14px;
         line-height: 16.94px;
-        margin: 45px auto 25px auto;
+        margin: 45px 0 25px 0;
         width: 238px;
         height: 46px;
     }

@@ -37,12 +37,19 @@
         <div class="popup__container">
             <button class="popup__close" type="button" aria-label="Закрыть попап"></button>
             <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__input" name="author-info">
-                <input type='text' name="firstname" class='popup__field popup__field_text_name' value="Жак-Ив Кусто" placeholder="Имя">
-                <input type='text' name="profession" class='popup__field popup__field_text_profession' value="Исследователь океана" placeholder="Профессия">
-                <button class='popup__save' type="submit" name="submit" value='submit' aria-label="Сохранить попап">Сохранить</button>
+            <form class="popup__form" name="author-info" novalidate>
+                <fieldset class="popup__form-set">
+                    <label class="popup__input-container">
+                        <input id="name-input" type='text' name="firstname" class='popup__field popup__field_text_name' value="Жак-Ив Кусто" placeholder="Имя" required minlength="2" maxlength="40">
+                        <span class="popup__input-error name-input-error"></span>
+                    </label>
+                    <label class="popup__input-container">
+                        <input id="profession-input" type='text' name="profession" class='popup__field popup__field_text_profession' value="Исследователь океана" placeholder="Профессия" required minlength="2" maxlength="200">
+                        <span class="popup__input-error profession-input-error"></span>
+                    </label>
+                    <button class='popup__save' type="submit" name="submit" value='submit' aria-label="Сохранить попап">Сохранить</button>
+                </fieldset>
             </form>
-
         </div>
     </div>
 
@@ -50,10 +57,18 @@
         <div class="popup__container">
             <button class="popup__close" type="button" aria-label="Закрыть попап"></button>
             <h2 class="popup__title">Новое место</h2>
-            <form class="popup__input" name="new-locality">
-                <input type='text' name="input-title" required class='popup__field popup__field_text_title' placeholder="Название места">
-                <input type='text' name="input-link" required class='popup__field popup__field_text_link' placeholder="Ссылка на картинку">
-                <button class='popup__save' type="submit" name="submit" aria-label="Сохранить попап">Создать</button>
+            <form class="popup__form" name="new-locality">
+                <fieldset class="popup__form-set">
+                    <label class="popup__input-container">
+                        <input id="title-input" type='text' name="title-input" required class='popup__field popup__field_text_title' placeholder="Название места" minlength="2" maxlength="30">
+                        <span class="popup__input-error title-input-error"></span>
+                    </label>
+                    <label class="popup__input-container">
+                        <input id="link-input" type='url' name="link-input" required class='popup__field popup__field_text_link' placeholder="Ссылка на картинку">
+                        <span class="popup__input-error link-input-error"></span>
+                    </label>
+                    <button class='popup__save' type="submit" name="submit" aria-label="Сохранить попап">Создать</button>
+                </fieldset>
             </form>
         </div>
     </div>
@@ -78,6 +93,7 @@
     </div>
 
     <script src="./scripts/main.js"></script>
+    <script src="./scripts/validation.js"></script>
 
 </body>
 
