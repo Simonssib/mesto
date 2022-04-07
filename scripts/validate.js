@@ -1,12 +1,3 @@
-const validationList = {
-    formSelector: '.popup__form',
-    inputElement: '.popup__field',
-    submitButtonSelector: '.popup__save',
-    inactiveButtonClass: 'popup__save_disabled',
-    inputErrorClass: 'popup__field_type_error',
-    errorClass: 'popup__field_type_error'
-}
-
 const hasInvalidInput = (inputList) => {
     return inputList.some(inputElement => !inputElement.validity.valid);
 }
@@ -67,6 +58,12 @@ const enableValidation = ({ formSelector, ...rest }) => {
     formList.forEach(form => {
         setEventListeners(form, rest);
     });
+}
+
+/*функция блокировки кнопки сохранения*/
+const disableSubmitButton = (submitButtonSelector, inactiveButtonClass) => {
+    submitButtonSelector.classList.add(inactiveButtonClass);
+    submitButtonSelector.setAttribute('disabled', 'disabled');
 }
 
 enableValidation(validationList);

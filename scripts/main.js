@@ -23,38 +23,11 @@ const formCard = postPopup.querySelector('.popup__form');
 const card = postPopup.querySelector('.elements__item');
 const buttonCloseImage = cardTemplate.content.querySelector('.popup__close');
 
-const initialCards = [{
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
 const popupZoom = document.querySelector(".popup-zoom");
 const popupZoomPhoto = document.querySelector(".popup__zoom-photo");
 const popupZoomCaption = document.querySelector(".popup__zoom-caption");
 const popupZoomClose = popupZoom.querySelector(".popup__close");
 const popupList = Array.from(document.querySelectorAll('.popup'));
-
 
 function openPopup(element) {
     element.classList.add('popup_opened');
@@ -66,7 +39,7 @@ function closePopup(element) {
     document.removeEventListener('keydown', handleEscUp);
 };
 
-function formSubmitHandler(evt) {
+function submitFormHandler(evt) {
     evt.preventDefault();
     profileName.textContent = popupInputName.value;
     profileProfession.textContent = popupInputProfession.value;
@@ -141,10 +114,12 @@ initialCards.forEach(renderCard);
 profilePopupOpen.addEventListener('click', () => openPopup(profilePopup));
 profilePopupClose.addEventListener('click', () => closePopup(profilePopup));
 
-postPopupOpen.addEventListener('click', () => openPopup(postPopup));
+postPopupOpen.addEventListener('click', () => {
+    openPopup(postPopup);
+    disableSubmitButton(buttonAdd, 'popup__save_disabled');
+});
 postPopupClose.addEventListener('click', () => closePopup(postPopup));
 popupZoomClose.addEventListener('click', () => closePopup(popupZoom));
 
-
-formProfile.addEventListener('submit', formSubmitHandler);
+formProfile.addEventListener('submit', submitFormHandler);
 formCard.addEventListener('submit', addCard);
