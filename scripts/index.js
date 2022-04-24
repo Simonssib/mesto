@@ -49,20 +49,23 @@ function submitFormHandler(evt) {
     closePopup(profilePopup);
 };
 
-
-const renderCard = (data, container) => {
+const createCard = (data) => {
     const card = new Card(data, '.elements-template');
     const cardElement = card.generateCard();
+    return cardElement;
+}
+
+const renderCard = (data, container) => {
+    const cardElement = createCard(data);
     container.prepend(cardElement);
-};
+}
 
 function createNewCard(event) {
     event.preventDefault();
     renderCard({
-            name: inputCardTitle.value,
-            link: inputCardLink.value,
-        },
-        cardContainer);
+        name: inputCardTitle.value,
+        link: inputCardLink.value,
+    }, cardContainer);
     closePopup(postPopup);
     formCard.reset();
 };
@@ -97,7 +100,7 @@ profilePopupClose.addEventListener('click', () => closePopup(profilePopup));
 
 postPopupOpen.addEventListener('click', () => {
     openPopup(postPopup);
-    formValidCard.disableSubmitButton(buttonAdd, 'popup__save_disabled');
+    formValidCard.disableSubmitButton();
 });
 postPopupClose.addEventListener('click', () => closePopup(postPopup));
 popupZoomClose.addEventListener('click', () => closePopup(popupZoom));
