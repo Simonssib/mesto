@@ -1,4 +1,4 @@
-const initialCards = [{
+export const initialCards = [{
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
     },
@@ -24,7 +24,7 @@ const initialCards = [{
     }
 ];
 
-const validationList = {
+export const validationList = {
     formSelector: '.popup__form',
     inputElement: '.popup__field',
     submitButtonSelector: '.popup__save',
