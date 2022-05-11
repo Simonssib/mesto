@@ -17,8 +17,8 @@ formValidCard.enableValidation();
 // popup для увеличения картинок
 const popupZoomPhoto = new PopupWithImage({
     popupSelector: '.popup-zoom',
-    imageUrl: '.popup__zoom-photo',
-    imageName: '.popup__zoom-caption',
+    imageSelector: '.popup__zoom-photo',
+    titleSelector: '.popup__zoom-caption',
 });
 popupZoomPhoto.setEventListeners();
 
@@ -35,7 +35,7 @@ const createCard = (data) => {
 }
 const addCards = new Section({
         items: initialCards,
-        renderer: createCard,
+        renderer: (data) => { addCards.addItems(createCard(data)) },
     },
     '.elements'
 );
@@ -48,7 +48,7 @@ const popupAddCard = new PopupWithForm('.popup-post', (data) => {
 popupAddCard.setEventListeners();
 
 // Попап редактирования профиля
-const userInfo = new UserInfo({ name: '.profile__name', profession: '.profile__profession' });
+const userInfo = new UserInfo({ nameSelector: '.profile__name', professionSelector: '.profile__profession' });
 const popupProfile = new PopupWithForm('.popup-profile', (data) => {
     userInfo.setUserInfo(data);
 });
@@ -58,6 +58,7 @@ postPopupOpen.addEventListener('click', () => {
     formValidCard.disableSubmitButton();
     popupAddCard.open();
 });
+
 profilePopupOpen.addEventListener('click', () => {
     const userData = userInfo.getUserInfo();
     popupInputName.value = userData.name;

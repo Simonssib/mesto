@@ -15,15 +15,16 @@ export default class Card {
     }
     generateCard() {
         this._element = this._getTemplate();
+        this._imageCard = this._element.querySelector('.elements__photo');
+        this._buttonLike = this._element.querySelector('.elements__button-like');
+        this._imageCard.src = this._image;
+        this._imageCard.alt = this._title;
         this._setEventListeners();
-        const imageCard = this._element.querySelector('.elements__photo');
-        imageCard.src = this._image;
-        imageCard.alt = this._title;
         this._element.querySelector('.elements__paragraph').textContent = this._title;
         return this._element;
     }
     _handleCardLike() {
-        this._element.querySelector('.elements__button-like').classList.toggle('elements__button-like_active');
+        this._buttonLike.classList.toggle('elements__button-like_active');
     }
     _handleDeleteCard() {
         this._element.remove();
@@ -31,7 +32,7 @@ export default class Card {
     }
 
     _setEventListeners() {
-        this._element.querySelector('.elements__button-like').addEventListener('click', () => {
+        this._buttonLike.addEventListener('click', () => {
             this._handleCardLike();
         });
 
@@ -39,7 +40,7 @@ export default class Card {
             this._handleDeleteCard();
         });
 
-        this._element.querySelector('.elements__photo').addEventListener('click', () => {
+        this._imageCard.addEventListener('click', () => {
             this._handleCardClick(this._title, this._image);
         });
     }
