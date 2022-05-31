@@ -1,4 +1,3 @@
-'use strict';
 import FormValidator from '../components/FormValidator.js'
 import Card from '../components/Card.js'
 import PopupWithForm from '../components/PopupWithForm.js'
@@ -28,47 +27,12 @@ formValidCard.enableValidation();
 const formValidAvatar = new FormValidator(validationList, formAvatar);
 formValidAvatar.enableValidation();
 
-//Рендеринг карточек
-const addCards = new Section({
-        renderer: (cardItem) => {
-            const newCard = createCard(cardItem)
-            addCards.addItems(newCard);
-        }
-    },
-    '.elements'
-);
-
-//Функция делает запрос и удаляет лайк 
-const removeLike = (id, evt, count) => {
-    api.removeLike(id)
-        .then(() => {
-            evt.target.classList.remove('elements__button-like_active');
-            evt.target.nextElementSibling.textContent = String(count - 1);
-        })
-        .catch((err) => {
-            console.log(`Ошибка ${err}`);
-        });
-};
-
-//функция делает запрос и ставит лайк
-const setLike = (id, evt, count) => {
-    api.setLike(id)
-        .then(() => {
-            evt.target.classList.add('elements__button-like_active');
-            evt.target.nextElementSibling.textContent = String(count + 1);
-        })
-        .catch((err) => {
-            console.log(`Ошибка ${err}`);
-        });
-};
-
 //Увеличение картинки при клике
 const handleCardClick = (name, link) => {
     popupZoomPhoto.open(name, link);
 };
 
-
-//Создает класс кард и карточку. При создании класса используется колбеки
+//Создаем карточку
 const createCard = (data) => {
     const card = new Card(
         data,
@@ -76,13 +40,14 @@ const createCard = (data) => {
         userInfo._id,
         handleCardClick,
         handleDeleteIconClick,
-        setLike,
-        removeLike
+        api
     );
     const cardElement = card.generateCard();
     return cardElement;
 }
 
+//Рендеринг карточек
+const addCards = new Section(createCard, '.elements');
 
 const handleDeleteIconClick = (card) => {
     popupDeleteCard.open();
@@ -91,6 +56,7 @@ const handleDeleteIconClick = (card) => {
 
 // Данные пользователя
 const userInfo = new UserInfo({ nameSelector: '.profile__name', professionSelector: '.profile__profession', avatarSelector: '.profile__avatar' });
+
 //Функция добавления данных пользователя
 const handleUserInfo = (data) => {
     userInfo.setUserInfo(data);
@@ -103,6 +69,8 @@ const popupProfile = new PopupWithForm('.popup-profile', (data) => {
     api.editUserInfo(data.name, data.profession)
         .then((userData) => {
             userInfo.setUserInfo(userData);
+        })
+        .then(() => {
             popupProfile.close();
         })
         .finally(() => {
@@ -116,10 +84,12 @@ popupProfile.setEventListeners();
 
 // Попап добавления поста
 const popupAddCard = new PopupWithForm('.popup-post', (data) => {
-    popupAddCard.renderLoading(true)
+    popupAddCard.renderLoading(true);
     api.addCard(data)
         .then((res) => {
             addCards.addItems(createCard(res));
+        })
+        .then(() => {
             popupAddCard.close();
         })
         .finally(() => {
@@ -131,13 +101,15 @@ const popupAddCard = new PopupWithForm('.popup-post', (data) => {
 })
 popupAddCard.setEventListeners();
 
-//Попап подтверждения при удалениии 
+//Попап подтверждения при удалениии
 const popupDeleteCard = new PopupWithSubmit(
     '.popup-confirm',
     (cardId) => {
         api.deleteCard(cardId)
             .then(() => {
                 popupDeleteCard._card.handleDeleteCard();
+            })
+            .then(() => {
                 popupDeleteCard.close();
             })
             .catch((err) => console.error(`Ошибка ${err}`));
@@ -151,6 +123,8 @@ const popupEditAvatar = new PopupWithForm('.popup-avatar', () => {
     api.editUserAvatar(profileAvatarInput.value)
         .then((userData) => {
             userInfo.setUserInfo(userData);
+        })
+        .then(() => {
             popupEditAvatar.close();
         })
         .finally(() => {
@@ -173,7 +147,7 @@ popupZoomPhoto.setEventListeners();
 Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([userData, userCard]) => {
         handleUserInfo(userData);
-        addCards.renderer(userCard);
+        addCards.render(userCard);
     })
     .catch((err) => {
         console.log(err);

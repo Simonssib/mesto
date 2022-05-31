@@ -4,8 +4,7 @@ export default class Card {
         userId,
         handleCardClick,
         handleDeleteIconClick,
-        setLike,
-        removeLike
+        api
     ) {
         this._title = name;
         this._image = link;
@@ -15,10 +14,9 @@ export default class Card {
         this._userId = userId;
         this._cardSelector = cardSelector;
         this._countLike = this._likes.length;
+        this._api = api;
         this._handleCardClick = handleCardClick;
         this._handleDeleteIconClick = handleDeleteIconClick;
-        this._setLike = setLike;
-        this._removeLike = removeLike;
     }
 
     _getTemplate() {
@@ -57,6 +55,39 @@ export default class Card {
         this._element = null;
     }
 
+
+    removeLike(id) {
+        this._api.removeLike(id)
+            .then((res) => {
+                return res.likes.length
+            })
+            .then((count) => {
+                this._likeCount.textContent = count;
+            })
+            .then(() => {
+                this._buttonLike.classList.remove('elements__button-like_active');
+            })
+            .catch((err) => {
+                console.log(`Ошибка ${err}`);
+            });
+    };
+
+    setLike(id) {
+        this._api.setLike(id)
+            .then((res) => {
+                return res.likes.length;
+            })
+            .then((count) => {
+                this._likeCount.textContent = count;
+            })
+            .then(() => {
+                this._buttonLike.classList.add('elements__button-like_active');
+            })
+            .catch((err) => {
+                console.log(`Ошибка ${err}`);
+            });
+    }
+
     _setEventListeners() {
         this._element.querySelector('.elements__button-delete').addEventListener('click', () => {
             this._handleDeleteIconClick(this);
@@ -64,11 +95,11 @@ export default class Card {
 
         this._element.querySelector('.elements__button-like').addEventListener('click', (evt) => {
             if (!evt.target.classList.contains('elements__button-like_active')) {
-                this._setLike(this._id, evt, this._countLike);
-                this._countLike += 1;
+                this.setLike(this._id);
+
             } else {
-                this._removeLike(this._id, evt, this._countLike);
-                this._countLike -= 1;
+                this.removeLike(this._id);
+
             }
         });
 
